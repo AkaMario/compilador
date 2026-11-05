@@ -1,0 +1,17 @@
+Inicio
+Declare i, suma Entero;
+suma = 0;
+Para i = 1 Hasta 3 Haga
+    suma = suma + i;
+    Escriba(suma);
+FPara
+Si suma = 6 Entonces
+    suma = 10;
+Sino
+    suma = 0;
+FSi
+MQ suma < 12 Haga
+    suma = suma + 1;
+FMQ
+Escriba(suma);
+Fin

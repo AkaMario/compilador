@@ -1,0 +1,29 @@
+Inicio
+Declare a, b, c1 Entero;
+Declare x Real;
+Declare p Cadena;
+Declare j, i Entero;
+Lea(a); Lea(b);
+Si a < 5 Entonces
+    a = 3;
+    Si b > 1 Entonces
+        b = a * (b + (4 - x));
+    Sino
+        b = b - (a + 2);
+    FSi
+FSi;
+Para i = 1 Hasta j Haga
+    c1 = c1 + 1;
+    Para b = 1 Hasta i Haga
+        x = x + 2 * c1;
+    FPara;
+FPara;
+MQ a < j Haga
+    a = a + 1;
+    MQ i < a Haga
+        i = i + 1;
+    FMQ;
+FMQ;
+Escriba(a);
+Escriba(b);
+Fin

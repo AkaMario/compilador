@@ -1,0 +1,6 @@
+Inicio
+Declare a Entero;
+Si a > 5
+    a = 3;
+FSi
+Fin

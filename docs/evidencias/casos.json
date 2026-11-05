@@ -1,0 +1,247 @@
+[
+  {
+    "id": "P01",
+    "entrada": "Inicio Declare a1 entero; Fin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "P02",
+    "entrada": "Inicio Declare x,y,z real; Fin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "P03",
+    "entrada": "Inicio Declare 1x entero; Fin",
+    "esperado": "E02",
+    "salida": "Error [E02] Léxico - Línea 1: Identificador inválido '1x'; debe empezar por una letra ASCII y no ser una palabra reservada.",
+    "estado": 1
+  },
+  {
+    "id": "P04",
+    "entrada": "Inicio Declare x&1 entero; Fin",
+    "esperado": "E01",
+    "salida": "Error [E01] Léxico - Línea 1: Carácter no permitido '&'.",
+    "estado": 1
+  },
+  {
+    "id": "P05",
+    "entrada": "Inicio Declare x,,y real; Fin",
+    "esperado": "E06",
+    "salida": "Error [E06] Sintáctico - Línea 1: Declaración inválida: falta un identificador en la lista.",
+    "estado": 1
+  },
+  {
+    "id": "P06",
+    "entrada": "Inicio Declare p; Fin",
+    "esperado": "E06",
+    "salida": "Error [E06] Sintáctico - Línea 1: Declaración inválida: falta un tipo válido (Entero, Real, Cadena, Fecha o Lógico) o una coma entre variables.",
+    "estado": 1
+  },
+  {
+    "id": "P07",
+    "entrada": "Inicio Declare x numerico; Fin",
+    "esperado": "E06",
+    "salida": "Error [E06] Sintáctico - Línea 1: Declaración inválida: falta un tipo válido (Entero, Real, Cadena, Fecha o Lógico) o una coma entre variables.",
+    "estado": 1
+  },
+  {
+    "id": "P08",
+    "entrada": "Inicio\nDeclare a entero\nFin",
+    "esperado": "E05",
+    "salida": "Error [E05] Sintáctico - Línea 2: Falta ';' al final de la sentencia.",
+    "estado": 1
+  },
+  {
+    "id": "P09",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nX = (5 + y);\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "P10",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nA = 5 * (8 + x * (c + b));\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "P11",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nx = ( 5 + x;\nFin",
+    "esperado": "E12",
+    "salida": "Error [E12] Sintáctico - Línea 3: Paréntesis de apertura sin cierre en la expresión.",
+    "estado": 1
+  },
+  {
+    "id": "P12",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nY = 8 + 3 * ( b+c));\nFin",
+    "esperado": "E12",
+    "salida": "Error [E12] Sintáctico - Línea 3: Paréntesis de cierre sin apertura en la expresión.",
+    "estado": 1
+  },
+  {
+    "id": "P13",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nz = 4;\nFin",
+    "esperado": "E14",
+    "salida": "Error [E14] Semántico - Línea 3: Variable 'z' no declarada.",
+    "estado": 1
+  },
+  {
+    "id": "P14",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nA = ( b - ) 8M\nFin",
+    "esperado": "E13",
+    "salida": "Error [E13] Sintáctico - Línea 3: Expresión inválida: falta un operando antes de ')'.",
+    "estado": 1
+  },
+  {
+    "id": "B01",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nSi a<5 Entonces a=3; Si b>1 Entonces b=a*(b+(4-x)); Sino b=b-(a+2); FSi FSi;\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "B02",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nSi a>b\na=1;\nFSi\nFin",
+    "esperado": "E09",
+    "salida": "Error [E09] Sintáctico - Línea 3: Falta 'entonces' en el bloque Si.",
+    "estado": 1
+  },
+  {
+    "id": "B03",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nMQ a>=5 hga\nb=b*a;\na=a*1;\nFMQ\nFin",
+    "esperado": "E09",
+    "salida": "Error [E09] Sintáctico - Línea 3: Falta 'haga' en el bloque MQ.",
+    "estado": 1
+  },
+  {
+    "id": "B04",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nPara a=1 b haga\nx=2*a;\nFPara\nFin",
+    "esperado": "E09",
+    "salida": "Error [E09] Sintáctico - Línea 3: Falta 'hasta' en el bloque Para.",
+    "estado": 1
+  },
+  {
+    "id": "B05",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nPara a=1 Hasta b Haga\nPara c=1 Hasta b Haga\nx=x+1;\nFPara\nFin",
+    "esperado": "E10",
+    "salida": "Error [E10] Sintáctico - Línea 3: Bloque Para sin su FPara.",
+    "estado": 1
+  },
+  {
+    "id": "B06",
+    "entrada": "Inicio\nDeclare a,b,c,x,y Entero;\nSi a>b Entonces\na=1;\nSino\na=2;\nSino\na=3;\nFSi\nFin",
+    "esperado": "E11",
+    "salida": "Error [E11] Sintáctico - Línea 7: 'Sino' fuera de un Si o repetido en el mismo bloque.",
+    "estado": 1
+  },
+  {
+    "id": "variables_valido",
+    "entrada": "Inicio\nDeclare a Entero;\na=1;\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "variables_invalido",
+    "entrada": "Inicio\nz=1;\nFin",
+    "esperado": "E14",
+    "salida": "Error [E14] Semántico - Línea 2: Variable 'z' no declarada.",
+    "estado": 1
+  },
+  {
+    "id": "declare_valido",
+    "entrada": "Inicio\nDeclare x,y Real;\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "declare_invalido",
+    "entrada": "Inicio\nDeclare x,,y Real;\nFin",
+    "esperado": "E06",
+    "salida": "Error [E06] Sintáctico - Línea 2: Declaración inválida: falta un identificador en la lista.",
+    "estado": 1
+  },
+  {
+    "id": "asignacion_valido",
+    "entrada": "Inicio\nDeclare a Entero;\na=5+2*3;\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "asignacion_invalido",
+    "entrada": "Inicio\nDeclare a Entero;\na=5+;\nFin",
+    "esperado": "E13",
+    "salida": "Error [E13] Sintáctico - Línea 3: Expresión inválida: falta un operando.",
+    "estado": 1
+  },
+  {
+    "id": "parentesis_valido",
+    "entrada": "Inicio\nDeclare a Entero;\na=5*(8+(3+2));\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "parentesis_invalido",
+    "entrada": "Inicio\nDeclare a Entero;\na=(5+2;\nFin",
+    "esperado": "E12",
+    "salida": "Error [E12] Sintáctico - Línea 3: Paréntesis de apertura sin cierre en la expresión.",
+    "estado": 1
+  },
+  {
+    "id": "si_valido",
+    "entrada": "Inicio\nSi 1<2 Entonces\nSino\nFSi\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "si_invalido",
+    "entrada": "Inicio\nSi 1<2\nFSi\nFin",
+    "esperado": "E09",
+    "salida": "Error [E09] Sintáctico - Línea 2: Falta 'entonces' en el bloque Si.",
+    "estado": 1
+  },
+  {
+    "id": "para_valido",
+    "entrada": "Inicio\nDeclare i Entero;\nPara i=1 Hasta 3 Haga\nFPara\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "para_invalido",
+    "entrada": "Inicio\nDeclare i Real;\nPara i=1 Hasta 3 Haga\nFPara\nFin",
+    "esperado": "E16",
+    "salida": "Error [E16] Semántico - Línea 3: La variable 'i' del Para debe ser Entero.",
+    "estado": 1
+  },
+  {
+    "id": "mq_valido",
+    "entrada": "Inicio\nMQ 1<2 Haga\nFMQ\nFin",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  },
+  {
+    "id": "mq_invalido",
+    "entrada": "Inicio\nMQ 1<2 hga\nFMQ\nFin",
+    "esperado": "E09",
+    "salida": "Error [E09] Sintáctico - Línea 2: Falta 'haga' en el bloque MQ.",
+    "estado": 1
+  },
+  {
+    "id": "anexo_a",
+    "entrada": "Inicio\nDeclare a, b, c1 Entero;\nDeclare x Real;\nDeclare p Cadena;\nDeclare j, i Entero;\nLea(a); Lea(b);\nSi a < 5 Entonces\n    a = 3;\n    Si b > 1 Entonces\n        b = a * (b + (4 - x));\n    Sino\n        b = b - (a + 2);\n    FSi\nFSi;\nPara i = 1 Hasta j Haga\n    c1 = c1 + 1;\n    Para b = 1 Hasta i Haga\n        x = x + 2 * c1;\n    FPara;\nFPara;\nMQ a < j Haga\n    a = a + 1;\n    MQ i < a Haga\n        i = i + 1;\n    FMQ;\nFMQ;\nEscriba(a);\nEscriba(b);\nFin\n",
+    "esperado": "Correcto",
+    "salida": "El programa es sintácticamente correcto.",
+    "estado": 0
+  }
+]

@@ -1,0 +1,117 @@
+Verificación del proyecto - Fedora Linux 44 - 3 de noviembre de 2026
+
+$ rustc --version
+rustc 1.99.1 (58cf8f9c3 2026-10-13)
+Estado: 0
+
+$ cargo --version
+cargo 1.99.1 (5f94df478 2026-08-27)
+Estado: 0
+
+$ cargo fmt --check
+Estado: 0
+
+$ cargo test --locked --offline
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test interfaz::tests::codigo_invalido_no_ejecuta_ni_produce_salida ... ok
+test interfaz::tests::ejecutar_muestra_diez_y_lea_recibe_datos_desde_la_consola ... ok
+test interfaz::tests::el_editor_analiza_su_texto_y_conserva_el_codigo_si_falla_la_carga ... ok
+test interfaz::tests::boton_teclado_y_edicion_usan_el_motor_y_descartan_resultados_obsoletos ... ok
+test interfaz::tests::f5_y_entrada_por_enter_imprimen_el_dato_y_editar_detiene_la_ejecucion ... ok
+test interfaz::tests::renderiza_con_y_sin_ayuda_en_ventanas_pequenas ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+
+running 6 tests
+test acepta_el_programa_completo_del_anexo ... ok
+test acepta_mayusculas_tipos_y_sentencias_multilinea ... ok
+test bloques_del_documento_con_lineas_absolutas ... ok
+test conserva_lineas_y_repite_el_mismo_resultado ... ok
+test p01_a_p14_del_documento ... ok
+test rechaza_las_infracciones_de_la_gramatica ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test rechaza_archivos_que_no_son_utf8 ... ok
+test carga_utf8_y_no_confunde_un_error_de_archivo_con_error_del_programa ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test argumentos_invalidos_no_intentan_abrir_la_ventana ... ok
+test la_terminal_distingue_exito_error_de_programa_y_error_de_archivo ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 10 tests
+test escriba_imprime_el_valor_diez_y_respeta_precedencia_y_parentesis ... ok
+test asignar_no_imprime_hasta_escriba_y_las_variables_ignoran_mayusculas ... ok
+test rechaza_resultados_no_finitos_y_contadores_para_fraccionarios ... ok
+test lea_pausa_y_continua_sin_perder_el_estado ... ok
+test lea_admite_los_cinco_tipos_y_rechaza_entradas_incorrectas ... ok
+test ciclos_y_bloques_anidados_producen_sus_salidas_en_orden ... ok
+test errores_de_ejecucion_no_modifican_la_validacion_sintactica ... ok
+test si_y_sino_ejecutan_solo_la_rama_correspondiente ... ok
+test la_salida_ilimitada_se_detiene_y_las_asignaciones_pueden_copiar_texto ... ok
+test ejecutar_por_turnos_y_detener_no_bloquea_la_interfaz ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 3 tests
+test separa_elementos_sin_espacios_y_operadores_compuestos ... ok
+test admite_bom_y_saltos_windows ... ok
+test no_confunde_un_identificador_invalido_con_dos_tokens ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test distingue_expresion_invalida_de_punto_y_coma_ausente ... ok
+test acepta_expresiones_de_la_gramatica_y_rechaza_operadores_sin_operando ... ok
+test anidamiento_profundo_no_depende_de_la_pila_de_llamadas ... ok
+test entradas_arbitrarias_no_provocan_panico ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling compilador v0.1.0 (/home/muparela/Local Projects/Tarea/compilador)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.29s
+     Running unittests src/lib.rs (target/debug/deps/compilador-7f4572d39aeee369)
+     Running unittests src/main.rs (target/debug/deps/compilador-ba9caa7ec6cfc5e0)
+     Running tests/aceptacion.rs (target/debug/deps/aceptacion-04206b53246be8c1)
+     Running tests/archivos.rs (target/debug/deps/archivos-44c422bae9b2e528)
+     Running tests/cli.rs (target/debug/deps/cli-ec317ba14485fddb)
+     Running tests/ejecucion.rs (target/debug/deps/ejecucion-cb2a8c67b02e7932)
+     Running tests/lexico.rs (target/debug/deps/lexico-6611759336f09ca0)
+     Running tests/robustez.rs (target/debug/deps/robustez-e29e2d0033ed7da8)
+   Doc-tests compilador
+Estado: 0
+
+$ cargo clippy --locked --offline --all-targets -- -D warnings
+    Checking compilador v0.1.0 (/home/muparela/Local Projects/Tarea/compilador)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
+Estado: 0
+
+$ cargo build --locked --offline
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.20s
+Estado: 0
+
+$ /usr/bin/python3 scripts/verificar_casos.py
+35/35 casos verificados; evidencias en docs/evidencias/.
+Estado: 0

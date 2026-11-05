@@ -1,0 +1,4 @@
+Inicio
+Declare a Entero;
+a = z + 1;
+Fin

@@ -1,0 +1,5 @@
+Inicio
+Declare a Entero;
+a = 10;
+Escriba(a);
+Fin
