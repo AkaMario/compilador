@@ -1,5 +1,4 @@
 mod interfaz;
-
 use compilador::{archivos, sintactico};
 use interfaz::Editor;
 use std::process::ExitCode;

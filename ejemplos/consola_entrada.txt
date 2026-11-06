@@ -1,7 +1,0 @@
-Inicio
-Declare a, b Entero;
-Lea(a);
-Lea(b);
-a = a + b;
-Escriba(a);
-Fin

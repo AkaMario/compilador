@@ -39,7 +39,7 @@ Fuente normativa: especificación local en `context/`. Los resultados observados
 | RNF-01 | Rust, edición 2024 | Justificación en el informe |
 | RNF-02 | Cargo.lock, instalación y comandos documentados | Compilación y ventana verificadas en Fedora. Probar previamente en el equipo de sustentación |
 | RNF-03 | Constante `PATRON_IDENTIFICADOR` y crate regex | Código fuente e imagen del fragmento del informe |
-| RNF-04 | TextEdit multilínea, campo de ruta y botón Abrir archivo | Pruebas de archivos y capturas nativas |
+| RNF-04 | TextEdit multilínea y carga UTF-8 al iniciar con `--abrir RUTA` | Pruebas de archivos y capturas nativas |
 | RNF-05 | Mensajes E01-E16 y problemas de carga en español | Casos observados y pruebas CLI |
 | RNF-06 | Motor puro respecto a la entrada, recorrido estable y BTreeMap | Prueba de determinismo con diez repeticiones |
 | RNF-07 | Separación de lexico, sintactico, errores e interfaz | Estructura de `src/` |
@@ -54,9 +54,3 @@ Fuente normativa: especificación local en `context/`. Los resultados observados
 - El código fuente completo se entrega como proyecto separado y no se cuenta en las nueve páginas.
 
 La implementación se verifica contra la especificación entregada, no contra reglas adicionales ajenas a ella. No se afirma que las pruebas cubran toda entrada posible ni que garanticen una calificación o la compatibilidad con otros equipos.
-
-## Ampliación posterior: consola de ejecución
-
-A petición del usuario se añadió un intérprete opcional en `src/ejecucion.rs`, activado con Ejecutar/F5. Mantiene intacto el modo Analizar exigido por la especificación: cargar o analizar no ejecuta instrucciones. La ampliación agrega evaluación de expresiones, Escriba con valores, Lea interactivo, Si/Sino, MQ, Para y Detener.
-
-Sus decisiones de ejecución y límites se documentan en `docs/ejecucion.md`. Las pruebas en `tests/ejecucion.rs` y las pruebas del editor verifican valores, orden, precedencia, ciclos, pausa/reanudación y eventos de teclado. Los errores de ejecución están separados de E01-E16. No se atribuye esta ampliación a un RF que originalmente excluía la ejecución.

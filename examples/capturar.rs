@@ -1,5 +1,5 @@
 //! Captura reproducible de la ventana real para el informe.
-//! cargo run --example capturar -- ARCHIVO SALIDA.ppm [ANCHO ALTO] [--ejecutar]
+//! cargo run --example capturar -- ARCHIVO SALIDA.ppm [ANCHO ALTO]
 #[path = "../src/interfaz.rs"]
 mod interfaz;
 use eframe::{App, egui};
@@ -35,7 +35,7 @@ impl App for Captura {
 fn main() -> eframe::Result {
     let args: Vec<_> = std::env::args().skip(1).collect();
     if args.len() < 2 {
-        eprintln!("Uso: capturar ARCHIVO SALIDA.ppm [ANCHO ALTO] [--ejecutar]");
+        eprintln!("Uso: capturar ARCHIVO SALIDA.ppm [ANCHO ALTO]");
         return Ok(());
     }
     let ancho = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(1050.0);
@@ -48,10 +48,7 @@ fn main() -> eframe::Result {
         "Simulador - verificación visual",
         opciones,
         Box::new(move |_| {
-            let mut editor = interfaz::Editor::con_archivo(&args[0]);
-            if args.iter().any(|a| a == "--ejecutar") {
-                editor.ejecutar();
-            }
+            let editor = interfaz::Editor::con_archivo(&args[0]);
             Ok(Box::new(Captura {
                 editor,
                 destino: args[1].clone(),

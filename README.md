@@ -1,6 +1,6 @@
 # Simulador de compilador en Rust
 
-Aplicación de escritorio para validar el pseudocódigo definido en `context/Especificación de Requisitos – II Proyecto Simulación de un Compilador.md`. Realiza análisis léxico, sintáctico y comprobaciones semánticas de declaración y del tipo de las variables del `Para`. El botón Analizar conserva ese comportamiento. Como ampliación solicitada, el botón Ejecutar interpreta el programa y muestra en la consola los valores de Escriba; Lea pide datos en la misma ventana. No genera código objeto.
+Aplicación de escritorio para validar el pseudocódigo definido en `context/Especificación de Requisitos – II Proyecto Simulación de un Compilador.md`. Realiza análisis léxico, sintáctico y comprobaciones semánticas de declaración y del tipo de las variables del `Para`. La aplicación solo analiza: no ejecuta el pseudocódigo, no solicita datos con Lea ni imprime valores con Escriba. No genera código objeto.
 
 ## Iniciar
 
@@ -21,37 +21,16 @@ La primera compilación descarga y compila las dependencias. En Fedora se necesi
 ## Usar la ventana
 
 1. Escribir o pegar el pseudocódigo en el editor con números de línea.
-2. Pulsar **Analizar** o **Ctrl+Enter** para validar; pulsar **Ejecutar** o **F5** para obtener la salida del programa.
+2. Pulsar **Analizar** o **Ctrl+Enter** para validar el pseudocódigo.
 3. Si es válido, aparece **El programa es sintácticamente correcto.**
 4. Si es inválido, aparece su código E01-E16, tipo, línea absoluta del archivo y causa. Corregirlo y volver a analizar.
-5. Para cargar un archivo, escribir su ruta en el campo superior y pulsar **Abrir archivo**. Se carga y analiza automáticamente. Las rutas relativas parten del directorio desde donde se inició el programa; también se admiten rutas absolutas.
+5. Para cargar un archivo al iniciar, usar `--abrir RUTA`. Se carga y analiza automáticamente. Las rutas relativas parten del directorio desde donde se inició el programa; también se admiten rutas absolutas.
 
-Los archivos deben ser texto UTF-8. Se aceptan BOM inicial, finales de línea LF y CRLF. Si un archivo no existe o no es UTF-8, el editor conserva el texto anterior y muestra el problema de carga. **Abrir un archivo existente reemplaza el contenido del editor.** Usar **Copiar código** para conservarlo en otro editor: esta aplicación no guarda automáticamente. Tab permite recorrer los controles.
+Los archivos deben ser texto UTF-8. Se aceptan BOM inicial, finales de línea LF y CRLF. La aplicación no guarda automáticamente el texto del editor. Tab permite recorrer los controles.
 
-La opción **Reglas del lenguaje** muestra una referencia breve. Al modificar el código, el resultado anterior desaparece para evitar confundir una validación antigua con el texto nuevo. El panel de resultados y consola se puede redimensionar y desplazar. Al modificar el código también se descarta la ejecución anterior.
+Al modificar el código, el resultado anterior desaparece para evitar confundir una validación antigua con el texto nuevo. El panel de resultados se puede redimensionar y desplazar. La ventana muestra el editor y el reporte del análisis, sin consola de ejecución ni entrada interactiva.
 
-
-## Consola: mostrar el valor de una variable
-
-Ejecuta este programa con **Ejecutar** o **F5**:
-
-```text
-Inicio
-Declare a Entero;
-a = 10;
-Escriba(a);
-Fin
-```
-
-La consola muestra `10`. La asignación guarda el valor y `Escriba(a)` lo imprime; el nombre de la variable no se imprime como texto literal. El ejemplo está en `ejemplos/consola_10.txt`:
-
-```bash
-cargo run --locked -- --abrir ejemplos/consola_10.txt
-```
-
-Con `Lea(a);`, la ejecución se pausa: escribe el dato en **Entrada** y pulsa **Enviar dato** o Enter. Si el dato no sirve para el tipo declarado, puedes corregirlo sin reiniciar. `ejemplos/consola_entrada.txt` suma dos entradas y `ejemplos/consola_bloques.txt` muestra salidas de ciclos y condiciones.
-
-**Detener** interrumpe una ejecución o una espera de entrada. Cada nueva ejecución comienza con variables sin inicializar y una consola vacía. Un ciclo que no termina se detiene al llegar a 100000 instrucciones; hay un límite de 5000 líneas de salida. Los detalles y las decisiones numéricas están en `docs/ejecucion.md`. Analizar y cargar archivos nunca ejecutan el programa automáticamente.
+`Lea(a);` y `Escriba(a);` se validan conforme a RF-24 y RF-25: exigen una variable declarada entre paréntesis. `Lea("10");` es inválido: las comillas no pertenecen al lenguaje y el argumento no es un identificador.
 
 ## Lenguaje de entrada
 
@@ -115,9 +94,7 @@ Los números de línea empiezan en 1 y se refieren al programa completo. En los 
 | E15 | Semántico | Declaración duplicada |
 | E16 | Semántico | Variable o índice de Para no entero |
 
-Estas reglas corresponden al análisis estático. Ejecutar puede detectar además división por cero, variables sin inicializar y operaciones con valores no numéricos; son errores de ejecución, sin alterar el catálogo E01-E16.
-
-La prioridad entre problemas simultáneos es la del recorrido. No se garantiza detectar todos los errores en una pasada. El tipo declarado no se compara con los operandos de una asignación; tampoco se comprueba inicialización ni división por cero, porque Analizar no evalúa valores. Ejecutar sí evalúa y puede informar esos problemas.
+La prioridad entre problemas simultáneos es la del recorrido. No se garantiza detectar todos los errores en una pasada. El tipo declarado no se compara con los operandos de una asignación; tampoco se comprueba inicialización ni división por cero, porque el analizador no evalúa valores.
 
 ## Organización y lectura del código
 
@@ -129,7 +106,6 @@ La prioridad entre problemas simultáneos es la del recorrido. No se garantiza d
 | `src/archivos.rs` | Carga UTF-8 y errores de E/S |
 | `src/lexico.rs` | Tokens, regex, palabras reservadas, operadores y líneas |
 | `src/sintactico.rs` | Gramática, tabla de símbolos y pilas de bloques/paréntesis |
-| `src/ejecucion.rs` | Intérprete por turnos, valores, entrada y salida, expresiones y saltos de control |
 | `src/errores.rs` | Catálogo E01-E16 y formato en español |
 | `tests/` | Aceptación, léxico, archivos, terminal y robustez |
 | `ejemplos/` | Programa del anexo y errores de demostración |
@@ -156,7 +132,7 @@ Después de descargar las dependencias se pueden agregar `--offline` a las órde
 
 ## Documentación
 
-- `docs/ejecucion.md`: manual de la consola, semántica de ejecución y ejemplos.
+- `docs/flujo_logica_paso_a_paso.md`: recorrido del analizador, tokens, funciones y significado de las palabras reservadas.
 - `docs/informe_tecnico.md`: contenido editable del informe.
 - `output/pdf/informe_tecnico.pdf`: informe de 9 páginas de contenido, sin incluir un listado completo del código fuente.
 - `docs/matriz_requisitos.md`: trazabilidad de RF-01 a RF-29 y RNF-01 a RNF-08.

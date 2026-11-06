@@ -3,7 +3,7 @@
 
 El proyecto valida el pseudocódigo de la especificación del II Proyecto de Autómatas, Gramáticas y Lenguajes. Recibe texto escrito o cargado desde un archivo y responde si cumple las reglas. Cuando falla, informa un código, un tipo, una línea y una causa. Se implementó con asistencia de IA; este informe describe el software y sus verificaciones, sin atribuir autoría exclusiva ni inventar experiencias del estudiante.
 
-Un compilador completo transforma un lenguaje fuente en otro lenguaje o en código ejecutable. El modo Analizar implementa parte de su frente de análisis. El análisis léxico agrupa caracteres en tokens; el sintáctico reconoce la estructura que permite la gramática; las comprobaciones semánticas comprueban declaraciones previas, duplicados y tipos Entero del Para. Analizar no ejecuta ni genera código objeto. La ampliación opcional Ejecutar interpreta el programa y muestra Escriba en una consola, con entrada interactiva para Lea; se documenta en docs/ejecucion.md.
+Un compilador completo transforma un lenguaje fuente en otro lenguaje o en código ejecutable. Esta aplicación implementa parte de su frente de análisis. El análisis léxico agrupa caracteres en tokens; el sintáctico reconoce la estructura que permite la gramática; las comprobaciones semánticas comprueban declaraciones previas, duplicados y tipos Entero del Para. La aplicación no ejecuta el pseudocódigo ni genera código objeto. Lea y Escriba solo se validan; no hay consola ni entrada interactiva.
 
 La gramática describe cómo se combinan sentencias, expresiones y bloques. Las expresiones admiten identificadores, números, cuatro operadores y agrupación. Se reconoce su forma sin construir un árbol ni calcular resultados: la precedencia no cambia qué secuencias son válidas. Los bloques requieren una pila porque el último abierto debe cerrarse primero, incluso al mezclar Si, MQ y Para.
 
@@ -73,7 +73,7 @@ Parser::expresion mantiene el estado espera_operando. Al comenzar, después de u
 
 {{caso:asignacion_invalido}}
 
-Los números reales necesitan dígitos a ambos lados del punto; 3.14 es válido y 3. no lo es. La gramática no incluye signos unarios, cadenas literales ni operadores de potencia. Analizar no diagnostica división por cero porque no evalúa valores; Ejecutar sí la detecta como error de ejecución separado. Si encuentra otra asignación sin un terminador previo, reporta E05; un segundo signo = dentro de la expresión produce E13.
+Los números reales necesitan dígitos a ambos lados del punto; 3.14 es válido y 3. no lo es. La gramática no incluye signos unarios, cadenas literales ni operadores de potencia. El analizador no diagnostica división por cero porque no evalúa valores. Si encuentra otra asignación sin un terminador previo, reporta E05; un segundo signo = dentro de la expresión produce E13.
 
 La suite combina cinco operandos izquierdos, cuatro derechos y cuatro operadores: verifica 80 expresiones válidas y otras 80 con un operando eliminado. P14 también comprueba que (b - ) se diagnostique como expresión mal formada antes del token posterior 8M.
 
@@ -139,7 +139,7 @@ El contador debe ser una variable declarada como Entero. Los índices pueden ser
 
 La apertura registra FPara como cierre esperado. La pila permite un Para dentro de otro y mezclas con MQ o Si. Un FPara sin apertura o fuera de orden es E11. En el caso B05 hay dos aperturas y un solo cierre: el cierre corresponde al Para interno y el error E10 apunta al Para externo, que queda pendiente.
 
-Analizar no compara valores de los límites ni incrementa contadores. En la ampliación Ejecutar, el Para incrementa de uno en uno, incluye el límite final y omite el cuerpo si el inicio supera el límite. La palabra correcta es Hasta; la forma del enunciado original que usaba a como separador no se acepta.
+El analizador no compara valores de los límites ni incrementa contadores; solo valida el encabezado, las variables y el cierre de Para. La palabra correcta es Hasta; la forma del enunciado original que usaba a como separador no se acepta.
 
 <!-- pagina -->
 
@@ -161,7 +161,7 @@ El error con hga produce E09 porque falta la palabra Haga. Un MQ abierto sin cie
 
 El ejemplo completo del anexo contiene ciclos MQ anidados, Para anidados, un Si dentro de otro, lectura, escritura y expresiones con agrupación. Se acepta como programa correcto. Una prueba adicional apila 1000 pares Si/MQ y sus cierres para comprobar que el análisis no depende de la pila de llamadas del proceso.
 
-Con Analizar, el caso 1 < 2 solo se reconoce. Ejecutar lo interpreta y detiene los ciclos que alcancen 100000 instrucciones para mantener disponible la ventana. Los tipos Cadena, Fecha y Lógico permiten declaraciones, pero no introducen literales adicionales ni operadores lógicos en la gramática de expresiones o condiciones.
+La condición 1 < 2 solo se reconoce como estructura válida; no se evalúa ni se repite el cuerpo del ciclo. Los tipos Cadena, Fecha y Lógico permiten declaraciones, pero no introducen literales adicionales ni operadores lógicos en la gramática de expresiones o condiciones.
 
 <!-- pagina -->
 
@@ -177,9 +177,9 @@ Separar por líneas habría rechazado sentencias multilínea y confundido varias
 
 El código inicial colocó instrucciones después de la expresión final de main, lo que rompió su retorno Result; se corrigió el orden. Las API de eframe 0.37 difieren de tutoriales antiguos: se usaron App::ui, Panel y Context::run_ui. Las pruebas sin renderizador deben descartar explícitamente las actualizaciones de textura. Para inspección visual se abrió la aplicación en una sesión gráfica y se capturó su propio contenido, separado de las pruebas del motor.
 
-### Instalación, ejecución y límites
+### Instalación, uso y límites
 
-Usar cargo run --locked desde la raíz. Para abrir el ejemplo: cargo run --locked -- --abrir ejemplos/anexo_a.txt. La interfaz permite escribir, cargar UTF-8 por ruta, analizar, ejecutar y copiar el código o la salida. Ejecutar/F5 muestra los valores de Escriba y pausa Lea para ingresar datos; Detener interrumpe la ejecución. Abrir reemplaza el editor; no hay guardado automático. La carga fallida conserva el texto. El primer error se reporta conforme a RF-29; no se promete recuperación ni varios errores por pasada.
+Usar cargo run --locked desde la raíz. Para abrir el ejemplo: cargo run --locked -- --abrir ejemplos/anexo_a.txt. La interfaz permite escribir pseudocódigo y analizarlo con el botón Analizar o Ctrl+Enter. La carga UTF-8 al iniciar se realiza con --abrir RUTA. No hay consola, ejecución del pseudocódigo ni guardado automático. Lea y Escriba solo se validan. El primer error se reporta conforme a RF-29; no se promete recuperación ni varios errores por pasada.
 
 La entrega se verificó en Fedora; debe probarse en el equipo de sustentación antes de presentarse. RNF-08 es una condición de autoría académica, no una propiedad comprobable mediante pruebas: esta implementación declara la asistencia de IA. No se inventan nombres de integrantes, vivencias personales ni una garantía de aceptación por el docente.
 

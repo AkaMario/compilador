@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Registra las comprobaciones completas. Termina si alguna falla."""
 from pathlib import Path
+from datetime import date
 import subprocess
 import sys
 
@@ -17,7 +18,7 @@ comandos = [
 ]
 registro.parent.mkdir(parents=True, exist_ok=True)
 with registro.open('w') as archivo:
-    archivo.write('Verificación del proyecto - Fedora Linux 44 - 3 de noviembre de 2026\n')
+    archivo.write(f'Verificación del proyecto - {date.today().isoformat()}\n')
     for comando in comandos:
         salida = subprocess.run(comando, cwd=raiz, capture_output=True, text=True)
         archivo.write('\n$ ' + ' '.join(comando) + '\n')
